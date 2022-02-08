@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="mvc.js"></script>
+    <script>
+    function setup(){
+      
+      var btn = document.querySelector("#btn")
+      var ipt = document.querySelector("#ipt")
+      var display = document.querySelector("#display")
+      var model = new Model(0);
+      var listener = newNum => display.innerText = newNum;
+      model.addListener(listener)
+      var ctl = new Controler(model);
+    
+      btn.onclick = function(){
+        const value = ipt.value
+        console.log(value)
+        ctl.add(value)
+      };
+    }
+    </script>
+  </head>
+  <body onload="setup()">
+    <h2>MCV basic exemple</h2>
+    <button id="btn">add</button>
+    <input type="text" id="ipt"></input>
+    <div id="display"></div>
+  </body>
+</html>
