@@ -1,7 +1,8 @@
+//https://developer.mozilla.org/en-US/docs/Glossary/MVC
 class Controler {
   model = null;
-  add(value){
-    this.model.add(value)
+  add(value) {
+    this.model.add(value);
   }
   constructor(model) {
     this.model = model;
