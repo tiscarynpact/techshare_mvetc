@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="mvc2.js"></script>
+    <script>
+      function setup() {
+        var model = new Model(0);
+        var ctl = new Controler(model);
+        const container = document.querySelector('#view1');
+        const view1 = document.querySelector('#view1');
+        const v1 = new View(ctl, view1, 'input & display', document);
+
+       const view2 = document.querySelector('#view2');
+       const v2 = new View2(ctl, view2, 'display only', document);
+        
+        const view3 = document.querySelector('#view3');
+        const v3 = new View3(
+          ctl,
+          view3,
+          'ajoute 1 au résultat',
+          document
+        );
+      }
+    </script>
+  </head>
+  <body onload="setup()">
+    <h2>MCV 2</h2>
+    <div id="view1" class="container"></div>
+    <div id="view2" class="container"></div>
+    <div id="view3" class="container"></div>
+  </body>
+</html>
