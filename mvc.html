@@ -5,7 +5,6 @@
     <script src="mvc.js"></script>
     <script>
     function setup(){
-
       var model = new Model(0);
       var ctl = new Controler(model);
       const container = document.querySelector("#view1")
@@ -14,7 +13,7 @@
       const view3 = document.querySelector("#view3")
       const v1 = new View(ctl, model, view1, "input & display", document)
       const v2 = new View2(ctl, model, view2, "display only", document)
-      const v3 = new View2(ctl, model, view3, "ajoute 1 au résultat", document)
+      const v3 = new View3(ctl, model, view3, "ajoute 1 au résultat", document)
     }
     </script>
   </head>
