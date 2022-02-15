@@ -25,3 +25,58 @@ class Model {
     this.listeners.forEach((listener) => listener(this.count));
   }
 }
+class View {
+  constructor(controler, model, container, title, dom){
+    this.controler = controler;
+    const div = dom.createElement("div");
+    div.textContent = title;
+    container.appendChild(div);
+    
+    const ipt = dom.createElement("input");
+    ipt.type = "text";
+    ipt.value = 5;
+    container.appendChild(ipt)
+
+    const btn = dom.createElement('button');
+    btn.innerText = "add";
+    container.appendChild(btn)
+    btn.onclick = () => controler.add(ipt.value)
+
+    const divRes = dom.createElement("div");
+    divRes.textContent = 0;
+    container.appendChild(divRes)
+
+    model.addListener(value => divRes.innerText = value)
+  }
+}
+
+class View2 {
+  constructor(controler, model, container, title, dom){
+    this.controler = controler;
+    const div = dom.createElement("div");
+    div.textContent = title;
+    container.appendChild(div);
+   
+    const divRes = dom.createElement("div");
+    divRes.textContent = 0;
+    container.appendChild(divRes);
+
+    model.addListener(value => divRes.innerText = value)
+  }
+}
+
+
+class View3 {
+  constructor(controler, model, container, title, dom){
+    this.controler = controler;
+    const div = dom.createElement("div");
+    div.textContent = title;
+    container.appendChild(div);
+   
+    const divRes = dom.createElement("div");
+    divRes.textContent = 0;
+    container.appendChild(divRes);
+
+    model.addListener(value => divRes.innerText = value+1)
+  }
+}

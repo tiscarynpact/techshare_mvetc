@@ -1,29 +1,27 @@
 <html>
   <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="mvc.js"></script>
     <script>
     function setup(){
-      
-      var btn = document.querySelector("#btn")
-      var ipt = document.querySelector("#ipt")
-      var display = document.querySelector("#display")
+
       var model = new Model(0);
-      var listener = newNum => display.innerText = newNum;
-      model.addListener(listener)
       var ctl = new Controler(model);
-    
-      btn.onclick = function(){
-        const value = ipt.value
-        ctl.add(value)
-      };
+      const container = document.querySelector("#view1")
+      const view1 = document.querySelector("#view1")
+      const view2 = document.querySelector("#view2")
+      const view3 = document.querySelector("#view3")
+      const v1 = new View(ctl, model, view1, "input & display", document)
+      const v2 = new View2(ctl, model, view2, "display only", document)
+      const v3 = new View2(ctl, model, view3, "ajoute 1 au résultat", document)
     }
     </script>
   </head>
   <body onload="setup()">
     <h2>MCV basic exemple</h2>
-    <button id="btn">add</button>
-    <input type="text" id="ipt"></input>
-    <div id="display"></div>
+    <div id="view1" class="container"></div>
+    <div id="view2" class="container"></div>
+    <div id="view3" class="container"></div>
   </body>
 </html>
