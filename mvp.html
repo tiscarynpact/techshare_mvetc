@@ -1,18 +1,18 @@
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <script src="mvp.js"></script>
     <script>
-    function setup(){
-      
-    
-    }
+      function setup() {
+        const container = document.querySelector('#view1');
+        let m = new Model(0);
+        let v = new View(container, 'mvc example', document);
+        let p = new Presenter(v,m);
+      }
     </script>
   </head>
   <body onload="setup()">
-    <h2>MCP basic exemple</h2>
-    <button id="btn">add</button>
-    <input type="text" id="ipt"></input>
-    <div id="display"></div>
+    <h2>MVP basic exemple</h2>
+    <div id="view1"></div>
   </body>
 </html>
