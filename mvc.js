@@ -5,7 +5,8 @@ class Controler {
     this.model = model;
   }
   add(value) {
-    this.model.add(value);
+    //this.model.add(value);
+    setTimeout(() => this.model.add(value), 1000);
   }
 }
 
@@ -41,13 +42,23 @@ class View {
     const btn = dom.createElement('button');
     btn.innerText = 'add';
     container.appendChild(btn);
-    btn.onclick = () => controler.add(ipt.value);
+    btn.onclick = () => {
+      controler.add(ipt.value);
+      this.waiting.innerText = 'in progress...';
+    };
 
     const divRes = dom.createElement('div');
     divRes.textContent = 0;
     container.appendChild(divRes);
 
-    model.addListener((value) => (divRes.innerText = value));
+    this.waiting = dom.createElement('div');
+    this.waiting.textContent = '';
+    container.appendChild(this.waiting);
+
+    model.addListener((value) => {
+      divRes.innerText = value;
+      this.waiting.innerText = '';
+    });
   }
 }
 //display only (notifications du model)

@@ -10,8 +10,10 @@ class Controler {
     this.views = [...this.views , v];
   }
   add(value) {
-    this.model.add(value);
-    this.updateViews();
+    setTimeout(()=>{
+      this.model.add(value);
+      this.updateViews();
+    }, 1000)
   }
   constructor(model) {
     this.model = model;
@@ -32,6 +34,7 @@ class Model {
 //input & display
 class View {
   divRes = null;
+  waiting = null;
   constructor(controler, container, title, dom) {
     const div = dom.createElement('div');
     div.textContent = title;
@@ -45,15 +48,23 @@ class View {
     const btn = dom.createElement('button');
     btn.innerText = 'add';
     container.appendChild(btn);
-    btn.onclick = () => controler.add(ipt.value);
+    btn.onclick = () => {
+      controler.add(ipt.value);
+      this.waiting.innerText = "in progress..."
+    }
 
     this.divRes = dom.createElement('div');
     this.divRes.textContent = 0;
     container.appendChild(this.divRes);
+
+    this.waiting = dom.createElement('div');
+    container.appendChild(this.waiting);
+
     controler.registerView(this)
   }
   updateSum(value){
     this.divRes.innerText = value
+    this.waiting.innerText = ""
   }
 }
 //display only (notifications du model)

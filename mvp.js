@@ -65,6 +65,6 @@ class View {
 
     this.waiting = dom.createElement('div');
     this.waiting.textContent = '';
-    container.appendChild(this.waiting);
+    container.appendChild(this.waiting);;
   }
 }
