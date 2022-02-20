@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script src="mvvm.js"></script>
+    <script>
+      function setup() {
+        var model = new Model(0);
+        const container = document.querySelector('#view1');
+        const view1 = document.querySelector('#view1');
+        const view2 = document.querySelector('#view2');
+        var vm = new ViewModel(model);
+        const v1 = new View(vm, view1, 'input & display', document);
+
+        const getBinder = (view, model) => {
+          const o = {
+            add: function (value) {
+              setTimeout(() => {
+                view.setStatusDisplay('');
+                model.add(value);
+                view.setValue(model.count * 4);
+              }, 1000);
+              view.setStatusDisplay('processing...');
+            },
+          };
+          return o;
+        };
+        const binder = getBinder(v1, model);
+        vm.register(binder);
+      }
+    </script>
+  </head>
+  <body onload="setup()">
+    <h2>MVVM basic exemple</h2>
+    <div id="view1" class="container"></div>
+  </body>
+</html>
