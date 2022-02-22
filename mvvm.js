@@ -1,10 +1,14 @@
-//https://developer.mozilla.org/en-US/docs/Glossary/MVC
+//https://www.educative.io/collection/page/5429798910296064/5725579815944192/6200954505396224
 class ViewModel {
   model = null;
   count = 0;
   status = '';
   constructor(model) {
     this.model = model;
+    this.model.registerListener((value) =>{
+      this.count = value * 2;
+      this.reflect();
+    })
     this.count = this.model.count * 2;
   }
   bind(boundTarget) {
@@ -21,10 +25,8 @@ class ViewModel {
     this.status = 'Processing...';
     this.reflect();
     setTimeout(() => {
-      this.model.count += Number(v);
-      this.count = this.model.count * 2;
       this.status = '';
-      this.reflect();
+      this.model.count += Number(v);
     }, 1000);
   }
   reflect() {
@@ -37,12 +39,20 @@ class ViewModel {
 class Model {
   constructor(startCount) {
     this._count = Number(startCount);
+    this.listeners = [];
+  }
+  registerListener(listener){
+    this.listeners = [...this.listeners, listener];
   }
   get count() {
     return Number(this._count);
   }
   set count(v) {
     this._count = Number(v);
+    this.notify()
+  }
+  notify(){
+    this.listeners.forEach(listener => listener(this._count))
   }
 }
 //input & display
