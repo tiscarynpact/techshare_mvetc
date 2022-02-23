@@ -6,33 +6,35 @@ class ViewModel {
   constructor(model) {
     this.model = model;
     this.model.registerListener((value) =>{
-      this.count = value * 2;
-      this.reflect();
+      this.binder.count = value * 2;
     })
-    this.count = this.model.count * 2;
   }
   bind(boundTarget) {
     let proxy = {
-      set: function (obj, prop, value) {
-        obj[prop] = value;
+      set: (target, prop, value) => {
+        switch(prop){
+          case "count":
+            target[prop] = value;
+            boundTarget[prop] = value;
+            break;
+          case "status":
+            target[prop] = value;
+            boundTarget[prop] = value;
+            break;
+        }
+        boundTarget["model"] =  'Model count : ' + this.model.count
         return true;
       },
     };
-    this.binder = new Proxy(boundTarget, proxy);
-    this.reflect();
+    this.binder = new Proxy(this, proxy);
+    this.binder.count = this.model.count * 2;//init
   }
   add(v) {
-    this.status = 'Processing...';
-    this.reflect();
+    this.binder.status = 'Processing...';
     setTimeout(() => {
-      this.status = '';
+      this.binder.status = '';
       this.model.count += Number(v);
     }, 1000);
-  }
-  reflect() {
-    this.binder.status = this.status;
-    this.binder.value = 'ViewModel: ' + this.count;
-    this.binder.model = 'Model: ' + JSON.stringify(this.model);
   }
 }
 
@@ -61,7 +63,7 @@ class View {
     this.vm = vm;
     this.buildUI(container, title, dom);
   }
-  set value(v) {
+  set count(v) {
     this.divRes.innerText = v;
   }
   set status(txt) {
